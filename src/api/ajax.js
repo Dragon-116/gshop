@@ -26,6 +26,7 @@ return new Promise(function (resolve,reject){//高阶函数
   }).catch(function (error){
     //失败执行reject
     reject(error)
+
   })
 })
 }
