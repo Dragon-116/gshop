@@ -2,12 +2,15 @@
   <section class="msite">
     <!--首页头部-->
     <HeaderTop :title="address.name">
-         <span class="header_search" slot="left">
-            <i class="iconfont icon-sousuo"></i>
-          </span>
-      <span class="header_login" slot="right">
-            <span class="header_login_text">登录|注册</span>
-          </span>
+      <router-link class="header_search" slot="left" to="/search">
+        <i class="iconfont icon-sousuo"></i>
+      </router-link>
+      <router-link class="header_login" slot="right" :to="userInfo._id ? '/userInfo' : '/login' ">
+        <span class="header_login_text" v-if="!userInfo._id">登录|注册</span>
+        <span class="header_login_text" v-else>
+        <i class="iconfont icon-person"></i>
+        </span>
+      </router-link>
     </HeaderTop>
     <!--首页导航-->
     <nav class="msite_nav">
@@ -48,17 +51,17 @@
   import {mapState} from 'vuex'
 
   export default {
-    data() {
+    data () {
       return {
-        baseImageUrl: "https://fuss10.elemecdn.com"
-      };
+        baseImageUrl: 'https://fuss10.elemecdn.com'
+      }
     },
     mounted () {
       this.$store.dispatch('getCategorys')
       this.$store.dispatch('getShops')
     },
     computed: {
-      ...mapState(['address', 'categorys']),
+      ...mapState(['address', 'categorys', 'userInfo']),
       //根据 categorys 一维数组生成二维数组，小数组中元素个数最大值是8
       categorysArr () {
         const {categorys} = this
@@ -84,7 +87,7 @@
     },
 
     watch: {
-      categorys(value) {
+      categorys (value) {
         // categorys数组中有数据了, 在异步更新界面之前执行
         // 使用setTimeout可以实现效果, 但不是太好
         /*setTimeout(() => {
