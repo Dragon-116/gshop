@@ -11,4 +11,6 @@ export default {
   goods: [],//商品列表
   ratings: [],//商家平价列表
   info: {},//商家信息
+  cartFoods: [],//购物车中食物的列表
+  searcShops: []//搜索得到的商家列表
 }
